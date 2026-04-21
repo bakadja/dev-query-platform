@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "How does useState work?",
+    "content": "I am not a React developer and I am struggling to understand useState.",
+    "upvotes": 12,
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": 2,
+    "title": "How to pass either a string or a number to a function?",
+    "content": "I am working in a typescript project where I need to pass either a string or a number to a function. How can I do that?",
+    "upvotes": 5,
+    "createdAt": "2026-01-02"
+  }
+]

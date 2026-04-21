@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "questionId": 1,
+    "content": "useState is a React hook that allows you to add state to functional components.",
+    "upvotes": 8,
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": 2,
+    "questionId": 1,
+    "content": "useState is a React hook that allows you to add state to functional components.",
+    "upvotes": 2
+  },
+  {
+    "id": 3,
+    "questionId": 2,
+    "content": "You can use a union type to represent both string and number.",
+    "upvotes": 3,
+    "createdAt": "2026-01-02"
+  },
+  {
+    "id": 4,
+    "questionId": 2,
+    "content": "Use a generic type for the function.",
+    "upvotes": 1,
+    "createdAt": "2026-01-02"
+  }
+]
