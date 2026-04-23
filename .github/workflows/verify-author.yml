@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+# Suppression du warning Node.js 20 en forçant Node.js 24
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   check-author:
     runs-on: ubuntu-latest
