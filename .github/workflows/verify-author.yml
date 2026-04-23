@@ -5,7 +5,8 @@ on:
     branches:
       - main
 
-# Suppression du warning Node.js 20 en forçant Node.js 24
+# Solution préconisée par GitHub pour la dépréciation de Node.js 20
+# https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -14,37 +15,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
+        # Utilisation de la version majeure v4 selon les bonnes pratiques de versionnage
+        # https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#example-using-versioned-actions
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: Verify Author Email
         run: |
-          # Ton email autorisé
+          # Email autorisé pour ce dépôt
           ALLOWED_EMAIL="contact@kevinpaulidor.de"
           
-          # On détermine la plage de commits à vérifier
+          # Détermination de la plage de commits (push simple ou premier push)
           if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
-            # Cas d'une nouvelle branche ou premier push
             RANGE="HEAD^..HEAD"
           else
             RANGE="${{ github.event.before }}..${{ github.event.after }}"
           fi
 
-          echo "Vérification des commits : $RANGE"
+          echo "Vérification de l'historique : $RANGE"
           
-          # Récupère la liste unique des emails des auteurs dans cette plage
+          # Extraction des emails uniques des auteurs
           AUTHORS=$(git log $RANGE --pretty=format:'%ae' | sort -u)
           
           for EMAIL in $AUTHORS; do
             echo "Vérification de l'auteur : $EMAIL"
             if [ "$EMAIL" != "$ALLOWED_EMAIL" ]; then
               echo "--------------------------------------------------------"
-              echo "ERREUR : Auteur non autorisé détecté ($EMAIL)."
-              echo "Seul $ALLOWED_EMAIL est autorisé à pusher sur ce dépôt."
+              echo "ERREUR : Commit détecté avec l'auteur $EMAIL."
+              echo "Seul $ALLOWED_EMAIL est autorisé."
               echo "--------------------------------------------------------"
               exit 1
             fi
           done
           
-          echo "Succès : Tous les auteurs du push sont validés."
+          echo "Succès : Validation de l'auteur réussie."
