@@ -1,0 +1,46 @@
+name: Verify Commit Author
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify Author Email
+        run: |
+          # Ton email autorisé
+          ALLOWED_EMAIL="contact@kevinpaulidor.de"
+          
+          # On détermine la plage de commits à vérifier
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            # Cas d'une nouvelle branche ou premier push
+            RANGE="HEAD^..HEAD"
+          else
+            RANGE="${{ github.event.before }}..${{ github.event.after }}"
+          fi
+
+          echo "Vérification des commits : $RANGE"
+          
+          # Récupère la liste unique des emails des auteurs dans cette plage
+          AUTHORS=$(git log $RANGE --pretty=format:'%ae' | sort -u)
+          
+          for EMAIL in $AUTHORS; do
+            echo "Vérification de l'auteur : $EMAIL"
+            if [ "$EMAIL" != "$ALLOWED_EMAIL" ]; then
+              echo "--------------------------------------------------------"
+              echo "ERREUR : Auteur non autorisé détecté ($EMAIL)."
+              echo "Seul $ALLOWED_EMAIL est autorisé à pusher sur ce dépôt."
+              echo "--------------------------------------------------------"
+              exit 1
+            fi
+          done
+          
+          echo "Succès : Tous les auteurs du push sont validés."
