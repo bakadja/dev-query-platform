@@ -1,0 +1,25 @@
+{
+  "name": "dev-query-platform",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "dev": "concurrently -n \"API,WEB\" -c \"magenta,cyan\" \"bun run dev:api\" \"bun run dev:web\"",
+    "dev:api": "bun run --filter api  dev",
+    "dev:web": "bun run --filter web  dev",
+    "lint": "concurrently -n \"API,WEB\" -c \"magenta,cyan\" \"bun run lint:api\" \"bun run lint:web\" ",
+    "lint:api": "bun run --filter api lint",
+    "lint:web": "bun run --filter web lint",
+    "format": "bun x prettier --write ."
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.2.1",
+    "prettier": "^3.8.3"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
