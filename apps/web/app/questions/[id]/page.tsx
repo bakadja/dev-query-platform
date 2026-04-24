@@ -1,10 +1,14 @@
 import { QuestionDetail } from "@/components/question-detail";
+import { notFound } from "next/navigation";
 
 
 
 export default async function QuestionPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const safeId = safeParseNumber(id)
+  if(safeId === null){
+    return notFound()
+  }
   return safeId && (
     <QuestionDetail questionId={safeId} />
   )
