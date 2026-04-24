@@ -1,0 +1,167 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "dev-query-platform",
+  "homepage": "https://github.com/your-org/dev-query-platform",
+  "items": [
+    {
+      "name": "question-feed",
+      "type": "registry:block",
+      "title": "Question Feed",
+      "description": "Main Q&A feed with search, tag filtering, sort, pagination, and a sidebar with stats, top contributors and hot tags. Based on shadcn Card, Badge, Input, Select, Avatar, Button, Tooltip.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "select",
+        "avatar",
+        "separator",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "app/page.tsx",
+          "content": "import { QuestionFeed } from \"@/components/question-feed\"\n\nexport default function FeedPage() {\n  return <QuestionFeed />\n}\n",
+          "type": "registry:page",
+          "target": "app/page.tsx"
+        },
+        {
+          "path": "components/question-feed.tsx",
+          "type": "registry:component",
+          "target": "components/question-feed.tsx"
+        }
+      ],
+      "categories": ["feed", "list", "Q&A"]
+    },
+    {
+      "name": "question-detail",
+      "type": "registry:block",
+      "title": "Question Detail",
+      "description": "Full Q&A detail page with vote buttons (up/down with optimistic update), accepted answer badge, live viewer count badge, Markdown editor with toolbar, related questions sidebar, and answer form. Based on shadcn Card, Badge, Button, Tabs, Textarea, Tooltip, Toggle, Avatar, Separator.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "card",
+        "separator",
+        "tabs",
+        "textarea",
+        "toggle",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "app/questions/[id]/page.tsx",
+          "content": "import { QuestionDetail } from \"@/components/question-detail\"\n\nexport default function QuestionDetailPage({\n  params,\n}: {\n  params: { id: string }\n}) {\n  return <QuestionDetail questionId={Number(params.id)} />\n}\n",
+          "type": "registry:page",
+          "target": "app/questions/[id]/page.tsx"
+        },
+        {
+          "path": "components/question-detail.tsx",
+          "type": "registry:component",
+          "target": "components/question-detail.tsx"
+        }
+      ],
+      "categories": ["detail", "Q&A", "editor"]
+    },
+    {
+      "name": "ask-question-form",
+      "type": "registry:block",
+      "title": "Ask Question Form",
+      "description": "Question creation form with Markdown editor (toolbar + Write/Preview tabs), interactive tag input with autocomplete and chips, character counter on title, writing tips sidebar, and Markdown cheatsheet. Based on shadcn Card, Input, Label, Textarea, Tabs, Toggle, Badge, Button, Tooltip, Separator.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "badge",
+        "button",
+        "card",
+        "input",
+        "label",
+        "separator",
+        "tabs",
+        "textarea",
+        "toggle",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "app/questions/new/page.tsx",
+          "content": "import { AskQuestionForm } from \"@/components/ask-question-form\"\n\nexport default function AskPage() {\n  return <AskQuestionForm />\n}\n",
+          "type": "registry:page",
+          "target": "app/questions/new/page.tsx"
+        },
+        {
+          "path": "components/ask-question-form.tsx",
+          "type": "registry:component",
+          "target": "components/ask-question-form.tsx"
+        }
+      ],
+      "categories": ["form", "editor", "Q&A"]
+    },
+    {
+      "name": "auth-form",
+      "type": "registry:block",
+      "title": "Auth Form (Login + Register)",
+      "description": "Combined Login and Register form with toggle between modes, show/hide password, error alert, loading state and links. Extends the shadcn login-01 block pattern. Based on shadcn Card, Input, Label, Button, Alert, Separator.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "alert",
+        "button",
+        "card",
+        "input",
+        "label",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "app/login/page.tsx",
+          "content": "import { AuthForm } from \"@/components/auth-form\"\n\nexport default function LoginPage() {\n  return <AuthForm mode=\"login\" />\n}\n",
+          "type": "registry:page",
+          "target": "app/login/page.tsx"
+        },
+        {
+          "path": "components/auth-form.tsx",
+          "type": "registry:component",
+          "target": "components/auth-form.tsx"
+        }
+      ],
+      "categories": ["auth", "form"]
+    },
+    {
+      "name": "user-profile",
+      "type": "registry:block",
+      "title": "User Profile",
+      "description": "Developer profile page with avatar, reputation score, progress bar toward next badge, stat cards, badge collection, and tabbed list of questions and answers. Based on shadcn Avatar, Badge, Button, Card, Progress, Separator, Tabs.",
+      "dependencies": [],
+      "devDependencies": [],
+      "registryDependencies": [
+        "avatar",
+        "badge",
+        "button",
+        "card",
+        "progress",
+        "separator",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "app/profile/[userId]/page.tsx",
+          "content": "import { UserProfile } from \"@/components/user-profile\"\n\nexport default function ProfilePage({\n  params,\n}: {\n  params: { userId: string }\n}) {\n  return <UserProfile userId={Number(params.userId)} />\n}\n",
+          "type": "registry:page",
+          "target": "app/profile/[userId]/page.tsx"
+        },
+        {
+          "path": "components/user-profile.tsx",
+          "type": "registry:component",
+          "target": "components/user-profile.tsx"
+        }
+      ],
+      "categories": ["profile", "user", "Q&A"]
+    }
+  ]
+}
