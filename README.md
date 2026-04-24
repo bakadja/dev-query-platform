@@ -45,7 +45,7 @@ The project follows a modular monorepo structure to ensure scalability and code 
 ├── packages/
 │   └── shared/     # Shared TypeScript interfaces and utilities
 ├── assets/         # Project design assets and diagrams
-├── docs/           # Documentation
+├── docs/           # Documentation - Requirements- Troubleshooting
 └── package.json    # Root workspace configuration
 ```
 
