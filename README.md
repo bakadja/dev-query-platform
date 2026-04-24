@@ -1,62 +1,120 @@
-# dev-query-platform
-A robust full-stack Q&A platform built with NestJS, Next.js, and TypeScript. Featuring real-time collaboration via WebSockets, AI-powered moderation (OpenAI), and a scalable architecture with TypeORM & Docker. 🚀
+# Dev Query Platform 🚀
 
-In this project, you will build a platform where users can ask technical questions, provide answers, and vote on the best solutions.
+![Dev Query Platform Banner](./assets/banner.png)
 
-## Basic Features
+A robust, professional full-stack Q&A platform designed for developers to ask technical questions, share knowledge, and collaborate in real-time. Built with a modern monorepo architecture leveraging **NestJS**, **Next.js**, and **TypeScript**.
 
-- **Question Feed:** A main dashboard displaying a list of recent questions, showing the title, author, and timestamp.
-- **Question Detail Page:** A dynamic route that displays the full question and a list of all submitted answers below it.
-- **Ask a Question:** A form to submit a new question with a title and a body.
-- **Post an Answer:** A form on the Question Detail page allowing users to submit a solution.
-- **Basic Search:** The ability to search for questions by keywords in their titles.
-- **Update Questions and Answers:** A form on the Question Detail page allowing users to update a question or answer.
-
-## Additional Features
-
-- **Authentication:** Allow users to sign up, log in, and log out.
-- **Upvote / Downvote System:** Allow users to vote on questions and answers, and sort answers by their score.
-- **Accept an Answer:** The author of a question can mark one answer as the "Accepted Solution" (highlighting it in green).
-- **Tags System:** Add tags (e.g., `javascript`, `react`) to questions and filter the main feed by those tags.
-- **Markdown Support:** Allow users to write questions and answers in Markdown so they can format code blocks cleanly.
-- **User Profiles & Reputation:** Track how many upvotes a user's answers have received and display a "reputation score."
-- **Live Updates:** Display a "Number of people viewing this question right now" badge, and broadcast a real-time event when a new answer is posted.
+[![Bun](https://img.shields.io/badge/Runtime-Bun-black?logo=bun)](https://bun.sh)
+[![Next.js](https://img.shields.io/badge/Frontend-Next.js-black?logo=next.js)](https://nextjs.org)
+[![NestJS](https://img.shields.io/badge/Backend-NestJS-E0234E?logo=nestjs)](https://nestjs.com)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript-blue?logo=typescript)](https://www.typescriptlang.org)
 
 ---
 
-## Implementation Recommendations
+## 🛠 Tech Stack
 
-Here is how this project maps to the specific technologies in your course:
+### Frontend (`apps/web`)
+- **Framework:** Next.js 16+ (App Router)
+- **Styling:** Tailwind CSS 4, Shadcn UI
+- **Components:** Shadcn UI
+- **Real-time:** Socket.io-client for live updates
 
-### TypeScript
+### Backend (`apps/api`)
+- **Framework:** NestJS
+- **ORM:** TypeORM with MySQL/SQLite support
+- **Real-time:** WebSockets (Socket.io)
+- **Validation:** Class-validator & Class-transformer
+- **AI Integration:** OpenAI-ready moderation (Planned)
 
-- **Data Contracts:** Create robust interfaces for complex API payloads (e.g., ensuring a `Question` object always includes an array of `Answer` objects and a `Tag` array).
-- **Tooling:** Use `nodemon` or `tsx` to keep your backend development smooth as you constantly tweak your database models.
+### Infrastructure & Tooling
+- **Runtime:** Bun (Fastest JS/TS runtime)
+- **Monorepo Management:** Bun Workspaces
+- **Shared Package:** Common types and utilities in `packages/shared`
 
-### Backend Basics / Template Engines
+---
 
-- **Server-Side Rendering:** Use `Express` and `Nunjucks` to render the list of questions on the server.
-- **REST API:** Build clean endpoints like `GET /questions`, `POST /questions`, and `POST /questions/:id/answers`.
-- **SQLite:** Restructure your data into separate tables (e.g., `users`, `questions`, `answers`, `tags`) and use `SQLite` and use relations to connect them.
+## 🏗 Architecture
 
-### OOP
+The project follows a modular monorepo structure to ensure scalability and code reuse:
 
-- **Inheritance:** Create an abstract `Post` class that contains shared properties (like `body`, `authorId`, `createdAt`, `score`). Then, have your `Question` class (adding `title` and `tags`) and `Answer` class (adding `isAccepted` and `questionId`) inherit from it.
+```text
 
-### NestJS
+├── apps/
+│   ├── api/        # NestJS Backend API
+│   └── web/        # Next.js Frontend Application
+├── packages/
+│   └── shared/     # Shared TypeScript interfaces and utilities
+├── assets/         # Project design assets and diagrams
+├── docs/           # Documentation
+└── package.json    # Root workspace configuration
+```
 
-- **Database Relations:** Use `TypeORM` and `MySQL` to handle complex relations:
-  - `Many-to-Many` relationships between `Questions` and `Tags`
-  - `One-to-Many` relationships between `Questions` and `Answers`
-  - `Many-to-One` relationships between `Users` and `Questions`
+---
 
-### Next.js App Router
+## ✨ Features
 
-- **Server-Side Rendering:** Use `Server Components` to fetch and render the Question Detail pages so they load instantly.
-- **Dynamic Routing:** Use file-based routing (e.g., `/questions/[id]`) to generate pages for each question automatically.
-- **Server Functions:** Use `Server Actions` to handle form submissions and API requests.
+### Core Functionality
+- **Question Dashboard:** Paginated/Filtered list of recent technical queries.
+- **Dynamic Detail Pages:** Full question display with nested answers.
+- **Engagement:** Submit questions and post solutions with a clean UI.
+- **Search:** Keyword-based search across titles and descriptions.
 
-### WebSockets
+### Advanced Capabilities
+- **Real-time Collaboration:** Live notifications when new answers are posted and active viewer counters via WebSockets.
+- **Reputation System:** Upvote/Downvote mechanics for questions and answers to build user credibility.
+- **Verified Solutions:** Authors can mark specific answers as the "Accepted Solution".
+- **Markdown Support:** Full syntax highlighting for code blocks in questions and answers.
+- **Tagging System:** Categorize questions with technical tags (e.g., `react`, `nestjs`, `bun`).
 
-- **Live Notifications:** Broadcast a real-time event when a new answer is posted. If User A is reading their question, a toast notification can pop up saying "User B just posted an answer!" without them needing to refresh the page.
-- **Live View Count:** Show a real-time "Number of people viewing this question right now" badge.
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- [Bun](https://bun.sh) installed (Recommended: v1.3.13+)
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/bakadja/dev-query-platform.git
+cd dev-query-platform
+
+# Install dependencies
+bun install
+```
+
+### Running the Project
+You can run both the frontend and backend simultaneously from the root:
+
+```bash
+# Start all services in development mode
+bun run dev
+```
+
+Individual service commands:
+```bash
+# Run only the API
+bun run dev:api
+
+# Run only the Web client
+bun run dev:web
+```
+
+---
+
+## 📝 Scripts
+
+| Command | Description |
+| :--- | :--- |
+| `bun run dev` | Starts API and Web apps concurrently |
+| `bun run lint` | Runs ESLint across the entire workspace |
+| `bun run format` | Formats code using Prettier |
+| `bun run build` | Builds all applications for production |
+
+---
+
+## 📄 License
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+Built with ❤️ for the Developer Community.
